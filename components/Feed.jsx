@@ -18,7 +18,8 @@ const Feed = () => {
       const response = await fetch(
         `/api/post/search`,{
           method : 'POST',
-          body: JSON.stringify({searchText})
+          body: JSON.stringify({searchText}), 
+          next: { revalidate: 10 },
         }
       );
       const data = await response.json();
