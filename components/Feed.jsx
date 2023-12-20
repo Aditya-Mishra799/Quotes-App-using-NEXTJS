@@ -3,13 +3,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import QuoteCard from "@components/QuoteCard";
-import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
-  const router = useRouter()
-  const pathname = usePathname();
 
   const handleSearchSubmit = async (e, searchText) => {
     e.preventDefault();
@@ -39,7 +36,8 @@ const Feed = () => {
       const data = await response.json();
       setPosts(data);
     };
-    fetchPost();
+     fetchPost()
+    setInterval(async ()=>await fetchPost(), 10000);
   }, []);
 
   const QuoteCardList = ({ data, handleTagClick }) => {
