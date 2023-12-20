@@ -74,7 +74,7 @@ const ProfilePage = () => {
   if( user_id && user_id !== session?.user.id){
     profileMetaData = {
       name: userData?.username &&  `${userData?.username}'s` ,
-      desc:` Welcome to ${userData?.email ? userData?.email:'' } profile page.`
+      desc:` Welcome to ${userData?.email ? userData?.email:'' }'s profile page.`
     }
   }
   return (

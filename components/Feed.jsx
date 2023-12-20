@@ -4,9 +4,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import QuoteCard from "@components/QuoteCard";
 import Image from "next/image";
+
+export const dynamic = "force-dynamic"; 
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
+ 
 
   const handleSearchSubmit = async (e, searchText) => {
     e.preventDefault();
@@ -36,8 +39,7 @@ const Feed = () => {
       const data = await response.json();
       setPosts(data);
     };
-     fetchPost()
-    setInterval(async ()=>await fetchPost(), 10000);
+    fetchPost();
   }, []);
 
   const QuoteCardList = ({ data, handleTagClick }) => {
