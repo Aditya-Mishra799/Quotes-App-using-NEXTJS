@@ -1,12 +1,12 @@
 "use client";
 
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import QuoteCard from "@components/QuoteCard";
 import Image from "next/image";
 
-export const dynamic = "force-dynamic"; 
 const Feed = () => {
+  const buttonRef = useRef(null);
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
  
@@ -38,6 +38,7 @@ const Feed = () => {
       const response = await fetch("/api/post");
       const data = await response.json();
       setPosts(data);
+      buttonRef.current.click();
     };
     fetchPost();
   }, []);
@@ -77,6 +78,7 @@ const Feed = () => {
             className ='object-contain cursor-pointer '
             title="search"
             onClick={(e)=>handleSearchSubmit(e, searchText)}
+            ref = {buttonRef}
           />
         </div>
       </form>

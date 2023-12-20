@@ -23,7 +23,7 @@ const QuoteCard = ({ post:postData, handleTagClick, handleEdit, handleDelete }) 
       <div className="flex justify-between items-start gap-5">
         <div className="flex-1 flex justify-start items-center gap-3 cursor-pointer ">
           <Image
-            src={post.creator.image}
+            src={post?.creator?.image}
             alt="user_image"
             width={40}
             height={40}
@@ -32,11 +32,11 @@ const QuoteCard = ({ post:postData, handleTagClick, handleEdit, handleDelete }) 
           />
           <div className="flex flex-col ">
             <h3 className="font-satoshi font-semibold text-gray-900">
-              {post.creator.username}
+              {post.creator?.username}
             </h3>
 
             <p className="font-inter text-sm text-gary-500">
-              {post.creator.email}
+              {post.creator?.email}
             </p>
           </div>
         </div>
@@ -63,7 +63,7 @@ const QuoteCard = ({ post:postData, handleTagClick, handleEdit, handleDelete }) 
       >
         {post.tag}
       </p>
-      {session?.user?.email === post.creator.email && 
+      {session?.user?.email === post.creator?.email && 
       pathname === '/profile' && (
         <div className="flex gap-4 mt-3 items-center border-t flex-center border-gray-200 pt-2">
           <p 
