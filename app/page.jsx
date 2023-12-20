@@ -8,7 +8,7 @@ const Home = () => {
       </h1>
       <p className='text-center px-20 mt-2 text-slate-100 text-lg md:px-40 '>
         This is an open-source platform to share you ideas and quotes with other
-        people online. Other people can see your profile and quotes. Please add a new qoutte to get started.
+        people online. Other people can see your profile and quotes. Please add a new qoute to get started.
       </p>
       <Feed/>
     </section>

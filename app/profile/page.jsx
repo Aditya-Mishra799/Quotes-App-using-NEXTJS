@@ -1,19 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Profile from "@components/Profile";
+import { useSession } from "next-auth/react";import Profile from "@components/Profile";
 import { checkLoginAndRedirect } from "@common_code/check_login_and_redirect";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams,usePathname,useRouter } from "next/navigation";
+
 const ProfilePage = () => {
-
-  const user_id = useSearchParams().get('id')
-  if(!user_id) checkLoginAndRedirect()
-
   const { data: session } = useSession();
-  const [userData, setUserData] = useState({})
   const router = useRouter();
+  const user_id = useSearchParams().get('id')  
+
+  const [userData, setUserData] = useState({})
   const [posts, setPosts] = useState([]);
 
   const fetchUserData = async()=>{
@@ -21,27 +18,32 @@ const ProfilePage = () => {
     const data = await response.json()
     setUserData(data)
   }
-
-
-  useEffect(() => {
-    
-    const fetchPost = async () => {
-      let id  = ''
-      if(user_id){
-        const response = await fetchUserData()
-        id = user_id
-      }
-      else{
+ const setAllData = async () =>{
+  let id = user_id
+    try {
+      if(user_id && user_id !== session?.user.id){
+        await fetchUserData()
+      }else{
+        checkLoginAndRedirect(session, router)
         id = session?.user.id
       }
+    } catch (error) {
+      console.log(error)
+    }finally{
       const response = await fetch(`/api/users/${id}/posts`);
       const data = await response.json();
       setPosts(data);
-    };
-    if (session?.user.id || user_id) {
-      fetchPost();
     }
-  }, [session]);
+ }
+  useEffect(()=>{
+   const setData = async ()=>{
+    await setAllData()
+   }
+   setData()
+
+  }, [session, user_id])
+
+  
 
   // handle edit to a post made by user logged in
   const handleEdit = (post) => {

@@ -62,7 +62,7 @@ const Feed = () => {
       >
         <input
           type="text"
-          placeholder="Search for a tag of user name"
+          placeholder="Search for a tag or user name"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
           required
